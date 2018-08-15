@@ -70,7 +70,6 @@ app.post('/upload', function(req, res) {
         var key = req.body.key;
         var shortKey = key.substr(0, 3) + '...';
         if(keys.indexOf(key) == -1) {
-            logger.auth('Failed authentication with key ' + key);
             res.setHeader('Content-Type', 'application/json');
             res.status(401).send(JSON.stringify({
                 success: false,
@@ -81,7 +80,6 @@ app.post('/upload', function(req, res) {
             }));
         } else {
             // Key is valid
-            logger.auth('Authentication with key ' + shortKey + ' succeeded');
             // Check if file was uploaded
             if(!req.files.file) {
                 logger.info('No file was sent, aborting... (' + shortKey + ')');
@@ -155,7 +153,6 @@ app.get('/delete', function(req, res) {
         var key = req.query.key;
         var shortKey = key.substr(0, 3) + '...';
         if(keys.indexOf(key) == -1) {
-            logger.auth('Failed authentication with key ' + key);
             res.setHeader('Content-Type', 'application/json');
             res.status(401).send(JSON.stringify({
                 success: false,
@@ -166,7 +163,6 @@ app.get('/delete', function(req, res) {
             }));
         } else {
             // Key is valid
-            logger.auth('Authentication with key ' + shortKey + ' succeeded');
             // Generate file informations
             var fileName = req.query.filename;
             var filePath = __dirname + '/uploads/' + fileName;
